@@ -1,4 +1,5 @@
 import os
+import sys
 clear = lambda: os.system('cls')
 
 x = 0
@@ -12,12 +13,13 @@ while x == 0:
             os.sytem("py -m pip install gtts")
             os.sytem("py -m pip install playsound")
             x = 1
-        except:
+        except OSError as e:
             y = 0
             while y == 0:
+                print(e)
                 ign = input("Kunde inte installera 3rd party moduler. Vill du försöka igen? (y/n):\n")
                 if ign == "n":
-                    os.quit()
+                    sys.exit()
                 elif ign != "y" or ign != "n":
                     print("\nSvara endast med \"y\" eller \"n\".")
                 else:
@@ -25,12 +27,11 @@ while x == 0:
 clear()
 try:
     from gtts import gTTS
-    import time
     from playsound import playsound
-    from tkinter import *
 except ImportError:
+    print(ImportError)
     input("Kunde inte importera 3rd party moduler.")
-    os.quit()
+    sys.exit()
 
 
 def tts(msg, language, filnamn="Tob's TTS no_name"):
@@ -42,7 +43,7 @@ def tts(msg, language, filnamn="Tob's TTS no_name"):
         while y == 0:
             ign = input("Kunde inte spara fil \"" + filnamn + ".mp3" + "\". Vill du försöka igen? (y/n):\n")
             if ign == "n":
-                os.quit()
+                sys.exit()
             elif ign != "y" or ign != "n":
                 print("\nSvara endast med \"y\" eller \"n\".")
             else:
